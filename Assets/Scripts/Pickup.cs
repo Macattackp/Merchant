@@ -57,6 +57,7 @@ public class Pickup : MonoBehaviour {
         }
     }
 
+    
     void CurrentEmptyAssignment(List<Transform> collection, Transform currentlyEmpty)
     {
        int lastFilled = collection.Count;
@@ -67,18 +68,34 @@ public class Pickup : MonoBehaviour {
     {
         
         CurrentEmptyAssignment(smallItem, currentEmpty);
-        
 
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        transform.parent = currentEmpty;
+        transform.position = currentEmpty.transform.position;
+        isCarried = true;
     }
 
     public void PickupMediumItems()
     {
+        CurrentEmptyAssignment(mediumItem, currentEmpty);
 
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        transform.parent = currentEmpty;
+        transform.position = currentEmpty.transform.position;
+        isCarried = true;
     }
 
     public void PickupLargeItems()
     {
+        CurrentEmptyAssignment(largeItem, currentEmpty);
 
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        transform.parent = currentEmpty;
+        transform.position = currentEmpty.transform.position;
+        isCarried = true;
     }
 
     public void PickupItemBasic(Transform item)
@@ -128,6 +145,8 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     public void TransformListSet()
     {
+        //int hi = carryManager.maxSmallItems;
+        //Debug.Log(hi);
         
         for (int i = 0; i < 10; i++)
         {
@@ -164,7 +183,7 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     public void Overburdened()
     {
-        if (playerDetails.strength < carryManager.carryWeight || carryManager.fullLoad == true)
+        if (playerDetails.strength < carryManager.carryWeight || carryManager.fullLoad == true || carryManager.carryWeight + item.weight > playerDetails.strength)
         {
             overburdened = true;
         }
@@ -181,17 +200,20 @@ public class Pickup : MonoBehaviour {
     {
         if (item.itemSize == ItemSize.Small)
         {
-            PickupSmallItems();
+            //PickupSmallItems();
+            Debug.Log(item.itemSize);
         }
 
         else if (item.itemSize == ItemSize.Medium)
         {
-            PickupMediumItems();
+            //PickupMediumItems();
+            Debug.Log(item.itemSize);
         }
 
         else if (item.itemSize == ItemSize.Large)
         {
-            PickupLargeItems();
+            //PickupLargeItems();
+            Debug.Log(item.itemSize);
         }
     }
 }

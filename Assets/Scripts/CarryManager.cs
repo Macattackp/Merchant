@@ -22,8 +22,7 @@ public class CarryManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
     {
-        playerCarry = GameObject.Find("Player").GetComponent<Player>();
-		
+        playerCarry = GameObject.Find("Player").GetComponent<Player>();		
 	}
 	
 	// Update is called once per frame
