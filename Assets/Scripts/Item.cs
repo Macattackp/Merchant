@@ -10,6 +10,13 @@ public enum ItemCategories
     Goods
 }
 
+public enum ItemSize
+{
+    Small,
+    Medium,
+    Large
+}
+
 public enum ItemTypes
 {
     Miner,
@@ -59,6 +66,7 @@ public enum BuffTypes
 public class Item : ScriptableObject {
 
     public new string name;
+    public ItemSize itemSize;
     public float weight;
     public float baseValue;
     public ItemCategories itemCategory;

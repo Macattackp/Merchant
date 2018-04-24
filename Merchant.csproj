@@ -327,7 +327,9 @@
     <Compile Include="Assets\Scripts\BetterJump.cs" />
     <Compile Include="Assets\Scripts\BuySell.cs" />
     <Compile Include="Assets\Scripts\CamMouseLook.cs" />
+    <Compile Include="Assets\Scripts\CarryManager.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\FloatText.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Pickup.cs" />

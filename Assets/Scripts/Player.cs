@@ -23,6 +23,11 @@ public class Player : MonoBehaviour {
     public int goldtoSilver = 100;
     public int silvertoCopper = 1000;
 
+    public float carryWeight = 0f;
+
+    public List<Pickup> carriedItems = new List<Pickup>();
+    public Pickup pickedupItem;
+
     private void Awake()
     {
         if (player == null)
@@ -58,5 +63,10 @@ public class Player : MonoBehaviour {
     public void PlayerDeath()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Carry()
+    {
+        
     }
 }
