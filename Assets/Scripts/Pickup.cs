@@ -23,7 +23,6 @@ public class Pickup : MonoBehaviour {
 
     public Player playerDetails;
     public CarryManager carryManager;
-    public ItemSize carryType=ItemSize.Null;
 
     void Awake()
     {
@@ -43,7 +42,7 @@ public class Pickup : MonoBehaviour {
 
     void PickupItem()
     {
-        if (carryType == item.itemSize || carryType == ItemSize.Null)
+        if (carryManager.carryType == item.itemSize || carryManager.carryType == ItemSize.Null)
         {
             DistanceCheck();
         }       
@@ -52,10 +51,7 @@ public class Pickup : MonoBehaviour {
 
     public void DistanceCheck()
     {
-        Overburdened();
-        CarryTypeReset();
-
-        
+        Overburdened();        
 
         float distance = Vector3.Distance(currentEmpty.transform.position, transform.position);
 
@@ -66,62 +62,43 @@ public class Pickup : MonoBehaviour {
     }
 
     
-    void CurrentEmptyAssignment(List<Transform> collection, Transform assignEmpty)
+    void PickupCalc(List<Transform> collection, Vector3 rotation)
     {
-       int lastFilled = carryManager.currentlyHeldItems.Count;
-       //Debug.Log(lastFilled);
-       assignEmpty = collection[lastFilled];
+        int lastFilled = carryManager.currentlyHeldItems.Count;
+        
+        currentEmpty = collection[lastFilled];
+        carryManager.currentlyHeldItems.Add(this);
+        //Debug.Log(currentEmpty);
+
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        transform.parent = currentEmpty;
+        transform.position = currentEmpty.transform.position;
+        transform.localEulerAngles = rotation;
+        isCarried = true;
+
+        carryManager.carryWeight = carryManager.carryWeight + item.weight;
     }
 
     public void PickupSmallItems()
     {
-        int lastFilled = carryManager.currentlyHeldItems.Count;
-        carryType = ItemSize.Small;
-        currentEmpty = smallItem[lastFilled];
-        carryManager.currentlyHeldItems.Add(this);
-
-        //Debug.Log(currentEmpty);
-
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().useGravity = false;
-        transform.parent = currentEmpty;
-        transform.position = currentEmpty.transform.position;
-        transform.localEulerAngles=new Vector3(0,0,0);
-        isCarried = true;
+        Vector3 rotation = new Vector3(0, 0, 0);
+        carryManager.carryType = ItemSize.Small;
+        PickupCalc(smallItem, rotation);
     }
 
     public void PickupMediumItems()
     {
-        int lastFilled = carryManager.currentlyHeldItems.Count;
-        carryType = ItemSize.Medium;
-        currentEmpty = mediumItem[lastFilled];
-        carryManager.currentlyHeldItems.Add(this);
-
-        //Debug.Log(currentEmpty);
-
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().useGravity = false;
-        transform.parent = currentEmpty;
-        transform.position = currentEmpty.transform.position;
-        transform.localEulerAngles = new Vector3(90, 0, 90);
-        isCarried = true;
+        Vector3 rotation = new Vector3(90, 0, 90);
+        carryManager.carryType = ItemSize.Medium;
+        PickupCalc(mediumItem, rotation);
     }
 
     public void PickupLargeItems()
     {
-        int lastFilled = carryManager.currentlyHeldItems.Count;
-        carryType = ItemSize.Large;
-        currentEmpty = largeItem[lastFilled];
-        carryManager.currentlyHeldItems.Add(this);
-
-        //Debug.Log(currentEmpty);
-
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().useGravity = false;
-        transform.parent = currentEmpty;
-        transform.position = currentEmpty.transform.position;
-        transform.localEulerAngles = new Vector3(0, 0, 0);
-        isCarried = true;
+        Vector3 rotation = new Vector3(0, 0, 0);
+        carryManager.carryType = ItemSize.Large;
+        PickupCalc(largeItem, rotation);
     }
 
     public void PickupItemBasic(Transform item)
@@ -134,26 +111,15 @@ public class Pickup : MonoBehaviour {
     }
 
     //************************************Dropping Items***********************************\\
-
-    public void ReleaseItem()
-    {
-        if(isCarried==true && Input.GetMouseButtonDown(0))
-        {
-            ThrowItem();
-        }
-        if(isCarried==true && Input.GetMouseButtonDown(1))
-        {
-            DropItem();
-        }
-    }
-
     public void ThrowItem()
     {
         GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
         isCarried = false;
         GetComponent<Rigidbody>().AddForce(cameraDirection.forward * throwForce);
-        GetComponent<Rigidbody>().useGravity = true;        
+        GetComponent<Rigidbody>().useGravity = true;
+
+        carryManager.carryWeight = carryManager.carryWeight-item.weight;        
     }
 
     public void DropItem()
@@ -161,7 +127,8 @@ public class Pickup : MonoBehaviour {
         GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
         isCarried = false;
-        GetComponent<Rigidbody>().useGravity = true;        
+        GetComponent<Rigidbody>().useGravity = true;
+        carryManager.carryWeight = carryManager.carryWeight - item.weight;       
     }
 
     //*******************************MISC****************************************************\\
@@ -242,13 +209,5 @@ public class Pickup : MonoBehaviour {
             PickupLargeItems();
             //Debug.Log(item.itemSize);
         }
-    }
-
-    void CarryTypeReset()
-    {
-        if (carryManager.currentlyHeldItems.Count == 0)
-        {
-            carryType = ItemSize.Null;
-        }
-    }
+    }    
 }
