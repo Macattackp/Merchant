@@ -14,7 +14,8 @@ public enum ItemSize
 {
     Small,
     Medium,
-    Large
+    Large,
+    Null
 }
 
 public enum ItemTypes

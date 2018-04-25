@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Pickup : MonoBehaviour {
 
     public Item item;
@@ -22,6 +23,7 @@ public class Pickup : MonoBehaviour {
 
     public Player playerDetails;
     public CarryManager carryManager;
+    public ItemSize carryType=ItemSize.Null;
 
     void Awake()
     {
@@ -41,60 +43,84 @@ public class Pickup : MonoBehaviour {
 
     void PickupItem()
     {
-        DistanceCheck();
+        if (carryType == item.itemSize || carryType == ItemSize.Null)
+        {
+            DistanceCheck();
+        }       
         
     }    
 
     public void DistanceCheck()
     {
         Overburdened();
+        CarryTypeReset();
+
+        
 
         float distance = Vector3.Distance(currentEmpty.transform.position, transform.position);
 
-        if (pickupDistance >= distance && Input.GetKeyDown(KeyCode.E)&&overburdened==false)
+        if (pickupDistance >= distance && Input.GetKeyDown(KeyCode.E) && overburdened == false && isCarried == false)
         {
             ItemType();
         }
     }
 
     
-    void CurrentEmptyAssignment(List<Transform> collection, Transform currentlyEmpty)
+    void CurrentEmptyAssignment(List<Transform> collection, Transform assignEmpty)
     {
-       int lastFilled = collection.Count;
-       currentlyEmpty = collection[lastFilled];
+       int lastFilled = carryManager.currentlyHeldItems.Count;
+       //Debug.Log(lastFilled);
+       assignEmpty = collection[lastFilled];
     }
 
     public void PickupSmallItems()
     {
-        
-        CurrentEmptyAssignment(smallItem, currentEmpty);
+        int lastFilled = carryManager.currentlyHeldItems.Count;
+        carryType = ItemSize.Small;
+        currentEmpty = smallItem[lastFilled];
+        carryManager.currentlyHeldItems.Add(this);
+
+        //Debug.Log(currentEmpty);
 
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
         transform.parent = currentEmpty;
         transform.position = currentEmpty.transform.position;
+        transform.localEulerAngles=new Vector3(0,0,0);
         isCarried = true;
     }
 
     public void PickupMediumItems()
     {
-        CurrentEmptyAssignment(mediumItem, currentEmpty);
+        int lastFilled = carryManager.currentlyHeldItems.Count;
+        carryType = ItemSize.Medium;
+        currentEmpty = mediumItem[lastFilled];
+        carryManager.currentlyHeldItems.Add(this);
+
+        //Debug.Log(currentEmpty);
 
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
         transform.parent = currentEmpty;
         transform.position = currentEmpty.transform.position;
+        transform.localEulerAngles = new Vector3(90, 0, 90);
         isCarried = true;
     }
 
     public void PickupLargeItems()
     {
-        CurrentEmptyAssignment(largeItem, currentEmpty);
+        int lastFilled = carryManager.currentlyHeldItems.Count;
+        carryType = ItemSize.Large;
+        currentEmpty = largeItem[lastFilled];
+        carryManager.currentlyHeldItems.Add(this);
+
+        //Debug.Log(currentEmpty);
 
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
         transform.parent = currentEmpty;
         transform.position = currentEmpty.transform.position;
+        transform.localEulerAngles = new Vector3(0, 0, 0);
         isCarried = true;
     }
 
@@ -198,22 +224,31 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     public void ItemType()
     {
+        
         if (item.itemSize == ItemSize.Small)
         {
-            //PickupSmallItems();
-            Debug.Log(item.itemSize);
+            PickupSmallItems();
+            //Debug.Log(item.itemSize);
         }
 
         else if (item.itemSize == ItemSize.Medium)
         {
-            //PickupMediumItems();
-            Debug.Log(item.itemSize);
+            PickupMediumItems();
+            //Debug.Log(item.itemSize);
         }
 
         else if (item.itemSize == ItemSize.Large)
         {
-            //PickupLargeItems();
-            Debug.Log(item.itemSize);
+            PickupLargeItems();
+            //Debug.Log(item.itemSize);
+        }
+    }
+
+    void CarryTypeReset()
+    {
+        if (carryManager.currentlyHeldItems.Count == 0)
+        {
+            carryType = ItemSize.Null;
         }
     }
 }
