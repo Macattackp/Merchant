@@ -128,6 +128,7 @@ public class Pickup : MonoBehaviour {
         transform.parent = null;
         isCarried = false;
         GetComponent<Rigidbody>().useGravity = true;
+
         carryManager.carryWeight = carryManager.carryWeight - item.weight;       
     }
 

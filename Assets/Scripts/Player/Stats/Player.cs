@@ -13,20 +13,14 @@ public class Player : MonoBehaviour {
     public int stealth = 10;
     public int strength = 80;
 
-    public int weightCarried = 0;
-    public int platinum = 0;
-    public int gold = 5;
-    public int silver = 0;
-    public int copper = 0;
-
-    public int platinumtoGold = 500;
-    public int goldtoSilver = 100;
-    public int silvertoCopper = 1000;
+    
 
     public float carryWeight = 0f;
 
     public List<Pickup> carriedItems = new List<Pickup>();
     public Pickup pickedupItem;
+    public CarryManager carryStatus;
+    public Currency Currency;
 
     private void Awake()
     {
@@ -63,10 +57,5 @@ public class Player : MonoBehaviour {
     public void PlayerDeath()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void Carry()
-    {
-        
-    }
+    }    
 }

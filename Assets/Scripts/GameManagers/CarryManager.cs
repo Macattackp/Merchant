@@ -51,7 +51,8 @@ public class CarryManager : MonoBehaviour {
     {
         if (currentlyHeldItems.Count >0 && Input.GetMouseButtonDown(0))
         {
-            int itemLength = currentlyHeldItems.Count-1;
+            int itemLength = currentlyHeldItems.Count-1;           
+
             foreach (Pickup items in currentlyHeldItems)
             {
                 currentlyHeldItems[itemLength].ThrowItem();
