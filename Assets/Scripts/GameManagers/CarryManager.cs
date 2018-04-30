@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarryManager : MonoBehaviour {
 
@@ -20,12 +21,17 @@ public class CarryManager : MonoBehaviour {
 
     public ItemSize carryType = ItemSize.Null;
 
+    public Text floatText;
+
+    private float fadeTime = 5f;
+
 
     // Use this for initialization
     void Awake ()
     {
-        playerCarry = GameObject.Find("Player").GetComponent<Player>();		
-	}
+        playerCarry = GameObject.Find("Player").GetComponent<Player>();
+        floatText.color = Color.clear;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -34,6 +40,17 @@ public class CarryManager : MonoBehaviour {
         FullLoad();
         ReleaseItem();
 	}
+
+    public void FullLoadWarningFadeIn()
+    {
+        floatText.text = "Your Arms Are Full";
+        floatText.color = Color.Lerp(floatText.color, Color.white, fadeTime * Time.deltaTime);  
+    }
+
+    public void FullLoadWarningFadeOut()
+    {
+        floatText.color = Color.Lerp(floatText.color, Color.clear, fadeTime * Time.deltaTime);
+    }
 
     public void FullLoad()
     {
@@ -49,7 +66,7 @@ public class CarryManager : MonoBehaviour {
 
     public void ReleaseItem()
     {
-        if (currentlyHeldItems.Count >0 && Input.GetMouseButtonDown(0))
+        if (currentlyHeldItems.Count > 0 && Input.GetMouseButtonDown(0) && playerCarry.interactionMode == false)
         {
             int itemLength = currentlyHeldItems.Count-1;           
 
@@ -61,7 +78,7 @@ public class CarryManager : MonoBehaviour {
 
             currentlyHeldItems.Clear();
         }
-        if (currentlyHeldItems.Count > 0 && Input.GetMouseButtonDown(1))
+        if (currentlyHeldItems.Count > 0 && Input.GetMouseButtonDown(1) && playerCarry.interactionMode == false)
         {
             int itemLength = currentlyHeldItems.Count-1;
             currentlyHeldItems[itemLength].DropItem();

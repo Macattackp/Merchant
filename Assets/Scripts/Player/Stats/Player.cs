@@ -13,8 +13,6 @@ public class Player : MonoBehaviour {
     public int stealth = 10;
     public int strength = 80;
 
-    
-
     public float carryWeight = 0f;
 
     public List<Pickup> carriedItems = new List<Pickup>();
@@ -22,9 +20,14 @@ public class Player : MonoBehaviour {
     public CarryManager carryStatus;
     public Currency Currency;
 
+    public bool interactionMode = false;
+    public bool lookingAtContainer = false;
+
+    public GameObject crossHairs;
+
     private void Awake()
     {
-        if (player == null)
+       /* if (player == null)
         {
             player = this;
         }
@@ -33,7 +36,10 @@ public class Player : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);*/
+
+        crossHairs = GameObject.Find("CrossHairs");
+        crossHairs.SetActive(false);
     }
 
     // Use this for initialization
@@ -51,6 +57,17 @@ public class Player : MonoBehaviour {
         if (health <= 0)
         {
             PlayerDeath();
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+            interactionMode = true;
+            crossHairs.SetActive(true);
+        }
+        else
+        {
+            interactionMode = false;
+            crossHairs.SetActive(false);
         }
     }
 

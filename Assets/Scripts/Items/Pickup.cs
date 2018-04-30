@@ -10,10 +10,10 @@ public class Pickup : MonoBehaviour {
     public float pickupDistance = 1.5f;
     public float throwForce = 1000f;    
         
-    public bool isCarried = false;
-    public bool carriedCall = false;
-    public bool withinDistance = false;
+    
     public bool overburdened = false;
+    public bool isContainer = false;
+    public bool complexObject = false;
 
     public List <Transform> smallItem;
     public List<Transform> mediumItem;
@@ -21,8 +21,17 @@ public class Pickup : MonoBehaviour {
     public Transform cameraDirection;
     public Transform currentEmpty;
 
-    public Player playerDetails;
-    public CarryManager carryManager;
+    private bool _isCarried = false;
+    private bool _hoverOver = false;
+    private bool _withinDistance = false;
+
+    private Player playerDetails;
+    private CarryManager carryManager;
+
+    private Color _highlightColour = Color.yellow;
+
+    private Material originalMaterial;
+    private Material temporaryMaterial;
 
     void Awake()
     {
@@ -31,6 +40,15 @@ public class Pickup : MonoBehaviour {
         playerDetails = GameObject.Find("Player").GetComponent<Player>();
         carryManager = GameObject.Find("GameManager").GetComponent<CarryManager>();
         currentEmpty = GameObject.Find("LargeItem1").transform;
+
+        if (complexObject == false) //Eventually replace with chooseable game object
+        {
+            originalMaterial = GetComponent<Renderer>().material;
+            temporaryMaterial = new Material(originalMaterial);
+            temporaryMaterial.color = _highlightColour;
+        }
+
+        
     }
 
     // Update is called once per frame
@@ -55,9 +73,23 @@ public class Pickup : MonoBehaviour {
 
         float distance = Vector3.Distance(currentEmpty.transform.position, transform.position);
 
-        if (pickupDistance >= distance && Input.GetKeyDown(KeyCode.E) && overburdened == false && isCarried == false)
+        if(pickupDistance >= distance)
+        {
+            _withinDistance = true;
+        }
+        else
+        {
+            _withinDistance = false;
+        }
+
+        if (_withinDistance && Input.GetMouseButtonDown(0) && !overburdened && !_isCarried && _hoverOver && playerDetails.interactionMode)
         {
             ItemType();
+        }
+
+        else if (overburdened == true && Input.GetMouseButtonDown(0) && playerDetails.interactionMode == true)
+        {
+            return;
         }
     }
 
@@ -75,7 +107,7 @@ public class Pickup : MonoBehaviour {
         transform.parent = currentEmpty;
         transform.position = currentEmpty.transform.position;
         transform.localEulerAngles = rotation;
-        isCarried = true;
+        _isCarried = true;
 
         carryManager.carryWeight = carryManager.carryWeight + item.weight;
     }
@@ -107,7 +139,7 @@ public class Pickup : MonoBehaviour {
         GetComponent<Rigidbody>().useGravity = false;
         transform.parent = item;
         transform.position = item.transform.position;
-        isCarried = true;        
+        _isCarried = true;        
     }
 
     //************************************Dropping Items***********************************\\
@@ -115,7 +147,7 @@ public class Pickup : MonoBehaviour {
     {
         GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
-        isCarried = false;
+        _isCarried = false;
         GetComponent<Rigidbody>().AddForce(cameraDirection.forward * throwForce);
         GetComponent<Rigidbody>().useGravity = true;
 
@@ -126,7 +158,7 @@ public class Pickup : MonoBehaviour {
     {
         GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
-        isCarried = false;
+        _isCarried = false;
         GetComponent<Rigidbody>().useGravity = true;
 
         carryManager.carryWeight = carryManager.carryWeight - item.weight;       
@@ -210,5 +242,46 @@ public class Pickup : MonoBehaviour {
             PickupLargeItems();
             //Debug.Log(item.itemSize);
         }
-    }    
+    }
+
+    //********************************WHEN MOUSE IS OVER*****************************
+
+    private void OnMouseOver()
+    {
+        if (playerDetails.interactionMode && !_isCarried && _withinDistance)
+        {
+            _hoverOver = true;
+
+            if (overburdened==true)
+            {
+                carryManager.FullLoadWarningFadeIn();
+            }
+
+            if (complexObject == false)
+            {
+                GetComponent<Renderer>().material = temporaryMaterial;
+            }
+
+            if (isContainer == true)
+            {
+                playerDetails.lookingAtContainer = true;
+            }
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        _hoverOver = false;
+        carryManager.FullLoadWarningFadeOut();
+
+        if (complexObject == false)
+        {
+            GetComponent<Renderer>().material = originalMaterial;
+        }
+
+        if (isContainer == true)
+        {
+            playerDetails.lookingAtContainer = false;
+        }
+    }
 }
