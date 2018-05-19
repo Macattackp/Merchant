@@ -27,6 +27,7 @@ public class Pickup : MonoBehaviour {
 
     private Player playerDetails;
     private CarryManager carryManager;
+    private InteractionMode _interactionSet;
 
     private Color _highlightColour = Color.yellow;
 
@@ -40,6 +41,7 @@ public class Pickup : MonoBehaviour {
         playerDetails = GameObject.Find("Player").GetComponent<Player>();
         carryManager = GameObject.Find("GameManager").GetComponent<CarryManager>();
         currentEmpty = GameObject.Find("LargeItem1").transform;
+        _interactionSet = GameObject.Find("Player").GetComponent<InteractionMode>();
 
         if (complexObject == false) //Eventually replace with chooseable game object
         {
@@ -60,7 +62,7 @@ public class Pickup : MonoBehaviour {
 
     void PickupItem()
     {
-        if (carryManager.carryType == item.itemSize || carryManager.carryType == ItemSize.Null)
+        if (carryManager.carryType == item.itemSize || carryManager.carryType == DictionaryEnum.ItemSize.Null)
         {
             DistanceCheck();
         }       
@@ -115,21 +117,21 @@ public class Pickup : MonoBehaviour {
     public void PickupSmallItems()
     {
         Vector3 rotation = new Vector3(0, 0, 0);
-        carryManager.carryType = ItemSize.Small;
+        carryManager.carryType = DictionaryEnum.ItemSize.Small;
         PickupCalc(smallItem, rotation);
     }
 
     public void PickupMediumItems()
     {
         Vector3 rotation = new Vector3(90, 0, 90);
-        carryManager.carryType = ItemSize.Medium;
+        carryManager.carryType = DictionaryEnum.ItemSize.Medium;
         PickupCalc(mediumItem, rotation);
     }
 
     public void PickupLargeItems()
     {
         Vector3 rotation = new Vector3(0, 0, 0);
-        carryManager.carryType = ItemSize.Large;
+        carryManager.carryType = DictionaryEnum.ItemSize.Large;
         PickupCalc(largeItem, rotation);
     }
 
@@ -225,19 +227,19 @@ public class Pickup : MonoBehaviour {
     public void ItemType()
     {
         
-        if (item.itemSize == ItemSize.Small)
+        if (item.itemSize == DictionaryEnum.ItemSize.Small)
         {
             PickupSmallItems();
             //Debug.Log(item.itemSize);
         }
 
-        else if (item.itemSize == ItemSize.Medium)
+        else if (item.itemSize == DictionaryEnum.ItemSize.Medium)
         {
             PickupMediumItems();
             //Debug.Log(item.itemSize);
         }
 
-        else if (item.itemSize == ItemSize.Large)
+        else if (item.itemSize == DictionaryEnum.ItemSize.Large)
         {
             PickupLargeItems();
             //Debug.Log(item.itemSize);
@@ -264,6 +266,7 @@ public class Pickup : MonoBehaviour {
 
             if (isContainer == true)
             {
+                _interactionSet.interactionModeStates = DictionaryEnum.InteractionModeState.Crate;
                 playerDetails.lookingAtContainer = true;
             }
         }
@@ -273,6 +276,7 @@ public class Pickup : MonoBehaviour {
     {
         _hoverOver = false;
         carryManager.FullLoadWarningFadeOut();
+        _interactionSet.interactionModeStates = DictionaryEnum.InteractionModeState.Null;
 
         if (complexObject == false)
         {

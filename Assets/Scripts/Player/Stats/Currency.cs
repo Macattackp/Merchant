@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CurrencyTypes
-{
-    Copper,
-    Silver,
-    Gold,
-    Platinum
-}
+
 
 public class Currency : MonoBehaviour {
 

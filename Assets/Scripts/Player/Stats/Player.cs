@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     public int stealth = 10;
     public int strength = 80;
 
+    public int currency = 500;
+
     public float carryWeight = 0f;
 
     public List<Pickup> carriedItems = new List<Pickup>();

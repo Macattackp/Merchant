@@ -19,7 +19,7 @@ public class CarryManager : MonoBehaviour {
     public Player playerCarry;
     public List<Pickup> currentlyHeldItems;
 
-    public ItemSize carryType = ItemSize.Null;
+    public DictionaryEnum.ItemSize carryType = DictionaryEnum.ItemSize.Null;
 
     public Text floatText;
 
@@ -91,7 +91,7 @@ public class CarryManager : MonoBehaviour {
     {
         if (currentlyHeldItems.Count == 0)
         {
-            carryType = ItemSize.Null;
+            carryType = DictionaryEnum.ItemSize.Null;
         }
     }
 }

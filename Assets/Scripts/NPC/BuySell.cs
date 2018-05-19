@@ -18,9 +18,9 @@ public class BuySell : MonoBehaviour {
 
 
     [SerializeField]
-    public List<HarvestList> harvestList = new List<HarvestList>();
+    public List<Item> harvestList = new List<Item>();
     [SerializeField]
-    public List<ItemValue> itemValue = new List<ItemValue>();
+    public List<Item> inventory = new List<Item>();
 
     public float waresCost;
     public float productionTime=30f;
@@ -103,16 +103,3 @@ public class BuySell : MonoBehaviour {
         }*/
     }
 }
-
-public class HarvestList : MonoBehaviour
-{
-    public GameObject harvestedItem;
-    public float harvestProbability;
-}
-
-public class ItemValue : MonoBehaviour
-{
-    public GameObject item;
-    public float itemValue;
-}
-
