@@ -77,7 +77,7 @@ public class DictionaryEnum : MonoBehaviour {
         Blacksmith,
         Millwright,
         Carpenter,
-        Taxidermist,
+        Tanner,
         Alchemist,
         Weaponsmith,
         Armorsmith,

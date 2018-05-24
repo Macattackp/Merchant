@@ -7,6 +7,8 @@ public class Pickup : MonoBehaviour {
 
     public Item item;
 
+    public string playerName="Player";
+
     public float pickupDistance = 1.5f;
     public float throwForce = 1000f;    
         
@@ -14,6 +16,7 @@ public class Pickup : MonoBehaviour {
     public bool overburdened = false;
     public bool isContainer = false;
     public bool complexObject = false;
+    public bool owned = false;
 
     public List <Transform> smallItem;
     public List<Transform> mediumItem;
@@ -38,10 +41,10 @@ public class Pickup : MonoBehaviour {
     {
         TransformListSet();
         cameraDirection = GameObject.Find("Main Camera").transform;
-        playerDetails = GameObject.Find("Player").GetComponent<Player>();
-        carryManager = GameObject.Find("GameManager").GetComponent<CarryManager>();
+        playerDetails = GameObject.Find(playerName).GetComponent<Player>();
+        carryManager = GameObject.Find(playerName).GetComponent<CarryManager>();
         currentEmpty = GameObject.Find("LargeItem1").transform;
-        _interactionSet = GameObject.Find("Player").GetComponent<InteractionMode>();
+        _interactionSet = GameObject.Find(playerName).GetComponent<InteractionMode>();
 
         if (complexObject == false) //Eventually replace with chooseable game object
         {

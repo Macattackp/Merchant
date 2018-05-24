@@ -11,6 +11,7 @@ public class Item : ScriptableObject {
     public float weight;
     public float area;
     public float baseValue;
+    public int rarity;
     public DictionaryEnum.ItemCategories itemCategory;
     public DictionaryEnum.ItemTypes itemType;
 

@@ -328,9 +328,10 @@
     <Compile Include="Assets\Scripts\_Infrastructure\Dictionaries\DictionaryRacePresets.cs" />
     <Compile Include="Assets\Scripts\_Infrastructure\Templates\Item.cs" />
     <Compile Include="Assets\Scripts\_Infrastructure\Templates\NPC.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\CarryManager.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\ItemManager.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\PhysicsManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagers\NPCManagers\StoreInventoryManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagers\ObjectManagers\PhysicsManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagers\PlayerManagers\CarryManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagers\WorldManagers\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Items\ItemCoin.cs" />
     <Compile Include="Assets\Scripts\Items\Pickup.cs" />
     <Compile Include="Assets\Scripts\NPC\BuySell.cs" />
