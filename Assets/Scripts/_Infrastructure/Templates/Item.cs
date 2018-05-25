@@ -7,6 +7,7 @@ using UnityEngine;
 public class Item : ScriptableObject {
 
     public new string name;
+    public GameObject sprite;
     public DictionaryEnum.ItemSize itemSize;
     public float weight;
     public float area;
@@ -14,6 +15,7 @@ public class Item : ScriptableObject {
     public int rarity;
     public DictionaryEnum.ItemCategories itemCategory;
     public DictionaryEnum.ItemTypes itemType;
+    public List<List<Item>> ingredients;
 
     public bool isEdible;
     public float nutrition;
@@ -21,11 +23,11 @@ public class Item : ScriptableObject {
     public float buffAmount;
 
     public bool isEquipable;
+    public DictionaryEnum.ItemEquipSlot equipSlot;
     public float attack;
     public float defense;
     public float stealthBonus;
 
     public bool isContainer;
     public float capacity;
-    public float maxWeight;
 }

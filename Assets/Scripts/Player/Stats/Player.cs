@@ -14,13 +14,17 @@ public class Player : MonoBehaviour {
     public int strength = 80;
 
     public int currency = 500;
+    public int platinumEarned=0;
+    public int goldEarned=0;
+    public int silverEarned=0;
+    public int copperEarned=0;
 
     public float carryWeight = 0f;
 
     public List<Pickup> carriedItems = new List<Pickup>();
     public Pickup pickedupItem;
     public CarryManager carryStatus;
-    public Currency Currency;
+    public Currency CurrencyDictionary;
 
     public bool interactionMode = false;
     public bool lookingAtContainer = false;
@@ -51,7 +55,8 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        PlayerState();		
+        PlayerState();
+        CurrencyDistribution();
 	}
 
     public void PlayerState()
@@ -76,5 +81,29 @@ public class Player : MonoBehaviour {
     public void PlayerDeath()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }    
+    }
+
+    public void CurrencyDistribution()
+    {
+        int remainder = currency % CurrencyDictionary.platinum;
+
+        int currencyCalc = currency - remainder;
+        platinumEarned = currencyCalc / CurrencyDictionary.platinum;
+
+        currencyCalc = remainder;
+        remainder = currencyCalc % CurrencyDictionary.gold;
+        currencyCalc = currencyCalc - remainder;
+        goldEarned = currencyCalc / CurrencyDictionary.gold;
+
+        currencyCalc = remainder;
+        remainder = currencyCalc % CurrencyDictionary.silver;
+        currencyCalc = currencyCalc - remainder;
+        silverEarned = currencyCalc / CurrencyDictionary.silver;
+
+        currencyCalc = remainder;
+        remainder = currencyCalc % CurrencyDictionary.copper;
+        currencyCalc = currencyCalc - remainder;
+        copperEarned = currencyCalc / CurrencyDictionary.copper;
+
+    }
 }

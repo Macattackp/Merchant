@@ -84,6 +84,22 @@ public class DictionaryEnum : MonoBehaviour {
         Jeweler
     }
 
+    public enum ItemEquipSlot
+    {
+        Null,
+        Head,
+        Chest,
+        Legs,
+        Hands,
+        Feet,
+        MainHand,
+        OffHand,
+        Cloak,
+        Back,
+        Ring,
+        Hip
+    }
+
 
     //****************************NPC******************************************\\
     public enum NPCType

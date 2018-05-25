@@ -332,6 +332,7 @@
     <Compile Include="Assets\Scripts\GameManagers\ObjectManagers\PhysicsManager.cs" />
     <Compile Include="Assets\Scripts\GameManagers\PlayerManagers\CarryManager.cs" />
     <Compile Include="Assets\Scripts\GameManagers\WorldManagers\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\Items\Container.cs" />
     <Compile Include="Assets\Scripts\Items\ItemCoin.cs" />
     <Compile Include="Assets\Scripts\Items\Pickup.cs" />
     <Compile Include="Assets\Scripts\NPC\BuySell.cs" />

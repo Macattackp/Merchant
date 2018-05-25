@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Currency : MonoBehaviour {
 
-    public int platinum = 0;
-    public int gold = 0;
-    public int silver = 0;
-    public int copper = 0;
+    public int platinum = 50000000;
+    public int gold = 50000;
+    public int silver = 100;
+    public int copper = 1;
 
     private int _platinumtoGold = 10000;
     private int _goldtoSilver = 1000;
