@@ -22,7 +22,7 @@ public class Pickup : MonoBehaviour {
     public List<Transform> mediumItem;
     public List<Transform> largeItem;
     public Transform cameraDirection;
-    public Transform currentEmpty;
+    public Transform currentEmpty;    
 
     private bool _isCarried = false;
     private bool _hoverOver = false;
@@ -36,6 +36,7 @@ public class Pickup : MonoBehaviour {
 
     private Material originalMaterial;
     private Material temporaryMaterial;
+    private List<Material> originalMaterialList;
 
     void Awake()
     {
@@ -46,14 +47,14 @@ public class Pickup : MonoBehaviour {
         currentEmpty = GameObject.Find("LargeItem1").transform;
         _interactionSet = GameObject.Find(playerName).GetComponent<InteractionMode>();
 
-        if (complexObject == false) //Eventually replace with chooseable game object
+        if (GetComponent<Renderer>().material != null)
         {
             originalMaterial = GetComponent<Renderer>().material;
-            temporaryMaterial = new Material(originalMaterial);
-            temporaryMaterial.color = _highlightColour;
         }
-
-        
+        else
+        {
+            originalMaterial = GetComponentInChildren<Renderer>().material;
+        }
     }
 
     // Update is called once per frame
@@ -105,7 +106,6 @@ public class Pickup : MonoBehaviour {
         
         currentEmpty = collection[lastFilled];
         carryManager.currentlyHeldItems.Add(this);
-        //Debug.Log(currentEmpty);
 
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
@@ -251,6 +251,9 @@ public class Pickup : MonoBehaviour {
 
     //********************************WHEN MOUSE IS OVER*****************************
 
+    //Makes item hovered over yellow
+    //TODO: Make each item in game item list yellow so complex items can work
+
     private void OnMouseOver()
     {
         if (playerDetails.interactionMode && !_isCarried && _withinDistance)
@@ -262,10 +265,23 @@ public class Pickup : MonoBehaviour {
                 carryManager.FullLoadWarningFadeIn();
             }
 
-            if (complexObject == false)
+            
+            foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            {
+                if (r.material != null)
+                {
+                    //originalMaterial = new Material(r.material);
+                    temporaryMaterial = new Material(r.material);
+                    temporaryMaterial.color = _highlightColour;
+                    //originalMaterialList.Add(r.material);
+                    r.material = temporaryMaterial;
+                }
+            }
+                        
+            /*if (complexObject == false)
             {
                 GetComponent<Renderer>().material = temporaryMaterial;
-            }
+            }*/
 
             if (isContainer == true)
             {
@@ -281,10 +297,26 @@ public class Pickup : MonoBehaviour {
         carryManager.FullLoadWarningFadeOut();
         _interactionSet.interactionModeStates = DictionaryEnum.InteractionModeState.Null;
 
-        if (complexObject == false)
+        
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        {
+            if (r.material != null)
+            {
+                r.material = originalMaterial;
+            }
+        }
+
+        /*Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (var r in renderers)
+        {
+            // Do something with the renderer here...
+            r.material = originalMaterial; // like change the colour. 
+        }
+        
+        /*if (complexObject == false)
         {
             GetComponent<Renderer>().material = originalMaterial;
-        }
+        }*/
 
         if (isContainer == true)
         {

@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{262CF0BA-8AC5-6A75-FEB2-BB66257F74DB}</ProjectGuid>
+    <ProjectGuid>{A193F30B-C8B9-151D-1FA8-126023A0F1DA}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -330,26 +330,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\_Infrastructure\Dictionaries\DictionaryEnum.cs" />
-    <Compile Include="Assets\Scripts\_Infrastructure\Dictionaries\DictionaryRacePresets.cs" />
-    <Compile Include="Assets\Scripts\_Infrastructure\Templates\Item.cs" />
-    <Compile Include="Assets\Scripts\_Infrastructure\Templates\NPC.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\NPCManagers\StoreInventoryManager.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\ObjectManagers\PhysicsManager.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\PlayerManagers\CarryManager.cs" />
-    <Compile Include="Assets\Scripts\GameManagers\WorldManagers\ItemManager.cs" />
-    <Compile Include="Assets\Scripts\Items\Container.cs" />
-    <Compile Include="Assets\Scripts\Items\ItemCoin.cs" />
-    <Compile Include="Assets\Scripts\Items\Pickup.cs" />
-    <Compile Include="Assets\Scripts\NPC\BuySell.cs" />
-    <Compile Include="Assets\Scripts\Player\Movement\BetterJump.cs" />
-    <Compile Include="Assets\Scripts\Player\Movement\CamMouseLook.cs" />
-    <Compile Include="Assets\Scripts\Player\Movement\CharacterMovement.cs" />
-    <Compile Include="Assets\Scripts\Player\Movement\InteractionMode.cs" />
-    <Compile Include="Assets\Scripts\Player\Stats\Currency.cs" />
-    <Compile Include="Assets\Scripts\Player\Stats\Player.cs" />
-    <Compile Include="Assets\Scripts\UI\FloatText.cs" />
-    <Compile Include="Assets\Scripts\UI\UIText.cs" />
+    <Compile Include="Assets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchant", "Merchant.csproj", "{262CF0BA-8AC5-6A75-FEB2-BB66257F74DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchant.Plugins", "Merchant.Plugins.csproj", "{C8B2C9B9-208A-360D-4D0F-1E863B6C1129}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchant.Editor.Plugins", "Merchant.Editor.Plugins.csproj", "{A193F30B-C8B9-151D-1FA8-126023A0F1DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{262CF0BA-8AC5-6A75-FEB2-BB66257F74DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{262CF0BA-8AC5-6A75-FEB2-BB66257F74DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{262CF0BA-8AC5-6A75-FEB2-BB66257F74DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B2C9B9-208A-360D-4D0F-1E863B6C1129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B2C9B9-208A-360D-4D0F-1E863B6C1129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B2C9B9-208A-360D-4D0F-1E863B6C1129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B2C9B9-208A-360D-4D0F-1E863B6C1129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A193F30B-C8B9-151D-1FA8-126023A0F1DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A193F30B-C8B9-151D-1FA8-126023A0F1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A193F30B-C8B9-151D-1FA8-126023A0F1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A193F30B-C8B9-151D-1FA8-126023A0F1DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
